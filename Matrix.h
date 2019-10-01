@@ -13,6 +13,9 @@ public:
 
     Matrix(size_t numRows, size_t numColumns);
 
+    template <size_t R, size_t C>
+    Matrix(const E (&matrix)[R][C]);
+
     size_t  getNumColumns() const noexcept;
     size_t  getNumRows()    const noexcept;
     E&      operator()(size_t row, size_t column);

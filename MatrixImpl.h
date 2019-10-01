@@ -10,6 +10,16 @@ Matrix<E>::Matrix(size_t numRows, size_t numColumns) : myMatrix(numRows, std::ve
 }
 
 template <typename E>
+template<size_t R, size_t C>
+Matrix<E>::Matrix(const E (&matrix)[R][C]) : myMatrix(R, std::vector<E>(C)) {
+    for (size_t row = 0; row < R; ++row) {
+        for (size_t column = 0; column < R; ++column) {
+            myMatrix[row][column] = matrix[row][column];
+        }
+    }
+}
+
+template <typename E>
 size_t Matrix<E>::getNumColumns() const noexcept {
     return myMatrix.at(0).size();
 }

@@ -15,11 +15,25 @@ protected:
 
 };
 
-TEST_F(MatrixTests, TestConstructor) {
+TEST_F(MatrixTests, TestConstructor1) {
     Matrix<double> testMatrix(2, 3);
 
     ASSERT_EQ(testMatrix.getNumColumns(), 3);
     ASSERT_EQ(testMatrix.getNumRows(), 2);
+}
+
+TEST_F(MatrixTests, TestConstructor2) {
+    Matrix<double> testMatrix({{0.0, 1.0},
+                               {2.0, 3.0},
+                               {4.0, 5.0}});
+
+    ASSERT_DOUBLE_EQ(testMatrix(0, 0), 0.0);
+    ASSERT_DOUBLE_EQ(testMatrix(0, 1), 1.0);
+    ASSERT_DOUBLE_EQ(testMatrix(1, 0), 2.0);
+    ASSERT_DOUBLE_EQ(testMatrix(1, 1), 3.0);
+    ASSERT_DOUBLE_EQ(testMatrix(2, 0), 4.0);
+    ASSERT_DOUBLE_EQ(testMatrix(2, 1), 5.0);
+
 }
 
 TEST_F(MatrixTests, TestElementAssignment) {
