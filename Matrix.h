@@ -5,6 +5,7 @@
 #ifndef CPPLINEARALGEBRA_MATRIX_H
 #define CPPLINEARALGEBRA_MATRIX_H
 
+#include <initializer_list>
 #include <vector>
 
 template <typename E>
@@ -15,6 +16,8 @@ public:
 
     template <size_t R, size_t C>
     Matrix(const E (&matrix)[R][C]);
+
+    Matrix(const std::initializer_list<std::initializer_list<E> >& matrix);
 
     size_t  getNumColumns() const noexcept;
     size_t  getNumRows()    const noexcept;

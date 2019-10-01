@@ -22,6 +22,28 @@ Matrix<E>::Matrix(const E (&matrix)[R][C]) : myMatrix(R, std::vector<E>(C)) {
 }
 
 template <typename E>
+Matrix<E>::Matrix(const std::initializer_list<std::initializer_list<E>> &matrix) {
+    if (matrix.size() == 0) {
+        throw EmptyInitializerListException();
+    }
+    size_t rowIndex = 0;
+    for (const auto& row: matrix) {
+        if (row.size() == 0) {
+            throw EmptyRowInInitializerListException(rowIndex);
+        }
+        if (row.size() != matrix.begin()->size()) {
+            throw UnequalRowLengthException(0, rowIndex);
+        }
+        ++rowIndex;
+    }
+
+    myMatrix.reserve(matrix.size());
+    for (const auto& row: matrix) {
+        myMatrix.push_back(row);
+    }
+}
+
+template <typename E>
 size_t Matrix<E>::getNumColumns() const noexcept {
     return myMatrix.at(0).size();
 }

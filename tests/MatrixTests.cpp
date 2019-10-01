@@ -36,6 +36,31 @@ TEST_F(MatrixTests, TestConstructorWith2dArray) {
 
 }
 
+TEST_F(MatrixTests, TestConstructionWithInitializerList) {
+
+    ASSERT_THROW(Matrix<double> testMatrix1 = {}, EmptyInitializerListException);
+
+    const std::initializer_list<std::initializer_list<double> > testInitializerList2 = {{}};
+    ASSERT_THROW(Matrix<double> testMatrix2 = testInitializerList2, EmptyRowInInitializerListException);
+
+    const std::initializer_list<std::initializer_list<double> > testInitializerList3 = {{0.0}, {}};
+    ASSERT_THROW(Matrix<double> testMatrix3 = testInitializerList3, EmptyRowInInitializerListException);
+
+    const std::initializer_list<std::initializer_list<double> > testInitializerList4 = {{0.0}, {1.0, 2.0}};
+    ASSERT_THROW(Matrix<double> testMatrix4 = testInitializerList4, UnequalRowLengthException);
+
+    Matrix<double> testMatrix5 = {{0.0, 1.0},
+                                  {2.0, 3.0},
+                                  {4.0, 5.0}};
+    ASSERT_DOUBLE_EQ(testMatrix5(0, 0), 0.0);
+    ASSERT_DOUBLE_EQ(testMatrix5(0, 1), 1.0);
+    ASSERT_DOUBLE_EQ(testMatrix5(1, 0), 2.0);
+    ASSERT_DOUBLE_EQ(testMatrix5(1, 1), 3.0);
+    ASSERT_DOUBLE_EQ(testMatrix5(2, 0), 4.0);
+    ASSERT_DOUBLE_EQ(testMatrix5(2, 1), 5.0);
+
+}
+
 TEST_F(MatrixTests, TestElementAssignment) {
 
     Matrix<double> testMatrix(2, 3);
