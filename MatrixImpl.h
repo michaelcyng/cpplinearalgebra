@@ -5,6 +5,8 @@
 #ifndef LINEARALGEBRA_MATRIXIMPL_H
 #define LINEARALGEBRA_MATRIXIMPL_H
 
+#include <MatrixExceptions.h>
+
 template <typename E>
 Matrix<E>::Matrix(size_t numRows, size_t numColumns) : myMatrix(numRows, std::vector<E>(numColumns)) {
 }
@@ -31,6 +33,10 @@ size_t Matrix<E>::getNumRows() const noexcept {
 
 template <typename E>
 E& Matrix<E>::operator()(size_t row, size_t column) {
+    if (row < 0 || column < 0 || row >= getNumRows() || column >= getNumColumns()) {
+        throw InvalidIndicesException(row, column, getNumRows(), getNumColumns());
+    }
+
     return myMatrix[row][column];
 }
 
